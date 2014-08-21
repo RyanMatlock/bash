@@ -1,0 +1,42 @@
+# OS X cruft
+.DS_Store
+
+# Emacs cruft
+*~
+[#]*[#]
+.\#*
+
+
+## the LaTeX, Python, etc. cruft is probably not so necessary in this case,
+## but I'll keep it anyway
+
+# LaTeX cruft
+*.aux
+*.log
+*.synctex.gz
+*.idx
+*.dvi
+*.toc
+*.out
+
+# Emacs/LaTeX together cruft:
+*.fls
+*.fdb_latexmk
+/auto
+
+# Python cruft
+*.py~
+
+# gitinfo -- including this file is disruptive to Git
+gitHeadInfo.gin
+
+# ignore clojure folder because it's stuff you've downloaded elsewhere
+clojure/
+
+# ignore python-pep8 because it's already a git repo
+# it's probably going to end up deleted at some point anyway because I'm
+# probably moving over to flycheck/flake8
+python-pep8/
+
+# flycheck is already a git repo
+flycheck/
