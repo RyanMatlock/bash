@@ -1,0 +1,5 @@
+does this work?
+// -*- mode: arduino -*-
+// -*- mode: text -*-
+// -*- mode: text -*-\n
+...bar

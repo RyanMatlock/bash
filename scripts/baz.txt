@@ -1,0 +1,4 @@
+// -*- mode: text -*-
+// -*- mode: text -*-
+// -*- mode: text -*-\n
+BAZ!!!
