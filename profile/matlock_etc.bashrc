@@ -1,0 +1,43 @@
+# System-wide .bashrc file for interactive bash(1) shells.
+if [ -z "$PS1" ]; then
+   return
+fi
+
+# PS1='\h:\W \u\$ '
+
+# source: 
+# http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
+# if [ $(id -u) -eq 0 ];
+# then
+#     # if you're root, the prompt should be bold and red
+#     # PS1='[\h:\W \u] \$ '
+#     PS1='\[\033[1;31m\]\]\h:\W \u \$ \[\033[0m\]\]'
+# else
+#     # if you're not root, bold is fine
+#     # PS1='\[\033[1;30m\]\]\h:\W \u \[\033[1;32m\]\$ \[\033[0m\]\]'
+#     PS1='\[\033[1;30m\]\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]\]'
+# fi
+
+# root user
+# SUDO_PS1='\[\033[1;31m\]\]\h:\W \u \$ \[\033[0m\]\]'
+# the one for root doesn't seem to be working
+
+# everyone else
+PS1='\[\033[1;30m\]\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]\]'
+
+# Make bash check its window size after a process completes
+shopt -s checkwinsize
+# Tell the terminal about the working directory at each prompt.
+if [ "$TERM_PROGRAM" == "Apple_Terminal" ] && [ -z "$INSIDE_EMACS" ]; then
+    update_terminal_cwd() {
+        # Identify the directory using a "file:" scheme URL,
+        # including the host name to disambiguate local vs.
+        # remote connections. Percent-escape spaces.
+    local SEARCH=' '
+    local REPLACE='%20'
+    local PWD_URL="file://$HOSTNAME${PWD//$SEARCH/$REPLACE}"
+    printf '\e]7;%s\a' "$PWD_URL"
+    }
+    PROMPT_COMMAND="update_terminal_cwd; $PROMPT_COMMAND"
+fi
+                                    
