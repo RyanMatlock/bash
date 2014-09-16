@@ -23,7 +23,13 @@ fi
 # the one for root doesn't seem to be working
 
 # everyone else
-PS1='\[\033[1;30m\]\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]\]'
+# PS1='\[\033[1;30m\]\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]\]'
+# the \[ \] brackets seem to do a weird thing with line breaking
+# ok, I got it working -- you were already closing stuff with \], but you
+# needed to preceed the special, non-printed chars with \[
+# see
+# http://askubuntu.com/questions/24358/how-do-i-get-long-command-lines-to-wrap-to-the-next-line
+PS1='\[\033[1;30m\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]'
 
 # Make bash check its window size after a process completes
 shopt -s checkwinsize
