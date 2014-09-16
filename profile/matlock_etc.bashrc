@@ -1,3 +1,6 @@
+### if you're having trouble editing this file, try doing
+### $ sudo chmod +w /etc/bashrc
+
 # System-wide .bashrc file for interactive bash(1) shells.
 if [ -z "$PS1" ]; then
    return
