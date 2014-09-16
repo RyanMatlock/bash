@@ -24,6 +24,11 @@ fi
 # root user
 # SUDO_PS1='\[\033[1;31m\]\]\h:\W \u \$ \[\033[0m\]\]'
 # the one for root doesn't seem to be working
+# SUDO_PS1='\[\033[1;31m\]\u \W \$ \[\033[0m\]'
+# ...still not working
+# source:
+# http://www.macworld.com/article/1146550/rootprompt.html
+# maybe I just need to edit my ~/.bash_profile instead
 
 # everyone else
 # PS1='\[\033[1;30m\]\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]\]'
