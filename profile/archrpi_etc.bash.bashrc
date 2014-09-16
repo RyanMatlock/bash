@@ -24,7 +24,7 @@
 # to hang
 # see http://stackoverflow.com/questions/6954479/emacs-tramp-doesnt-work
 # see also https://github.com/xaccrocheur/kituu/blob/master/.bashrc
-if [ "$TERM" = "tramp" ]; # (note bash's unusual string comparison operator)
+if [ "$TERM" = "dumb" ]; # (note bash's unusual string comparison operator)
 then
     PS1='> '
 else
