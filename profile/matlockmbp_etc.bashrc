@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 ### if you're having trouble editing this file, try doing
 ### $ sudo chmod +w /etc/bashrc
 
