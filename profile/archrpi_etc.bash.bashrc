@@ -8,17 +8,35 @@
 
 # PS1='[\u@\h \W]\$ '
 
-# this actually seems to work nicely with Arch
-# source: 
-# http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
-if [ $(id -u) -eq 0 ];
+# # this actually seems to work nicely with Arch
+# # source: 
+# # http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
+# if [ $(id -u) -eq 0 ];
+# then
+#     # if you're root, the prompt should be bold and red
+#     # PS1='[\h:\W \u] \$ '
+#     PS1='\[\033[1;31m\][\u@\h] \W \$ \[\033[0m\]'
+# else
+#     # if you're not root, bold is fine
+#     PS1='\[\033[1;30m\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]'
+# fi
+# actually, it didn't work quite as nicely as I'd want -- it was causing TRAMP
+# to hang
+# see http://stackoverflow.com/questions/6954479/emacs-tramp-doesnt-work
+# see also https://github.com/xaccrocheur/kituu/blob/master/.bashrc
+if [ "$TERM" -eq "tramp" ];
 then
-    # if you're root, the prompt should be bold and red
-    # PS1='[\h:\W \u] \$ '
-    PS1='\[\033[1;31m\][\u@\h] \W \$ \[\033[0m\]'
+    PS1='> '
 else
-    # if you're not root, bold is fine
-    PS1='\[\033[1;30m\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]'
+    if [ $(id -u) -eq 0 ];
+    then
+        # if you're root, the prompt should be bold and red
+        # PS1='[\h:\W \u] \$ '
+        PS1='\[\033[1;31m\][\u@\h] \W \$ \[\033[0m\]'
+    else
+        # if you're not root, bold is fine
+        PS1='\[\033[1;30m\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]'
+    fi
 fi
 
 PS2='> '
