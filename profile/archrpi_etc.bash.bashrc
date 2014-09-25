@@ -71,10 +71,9 @@ esac
 # checking if a variable is set (not done totally correctly, but when is
 # $EDITOR really going to be empty?):
 # http://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+# this works for Arch now at least -- we'll see about Elementary OS later
 function func_tstxt {
     now=$(date +"%F-%H%M%S");
-    # echo $now;
-    # echo $#;
     if [ $# -eq 0 ];
     then
         if [ -z $EDITOR ];
@@ -98,3 +97,4 @@ function func_tstxt {
 }
 
 alias tstxt=func_tstxt
+alias vtstxt="tstxt --vi"
