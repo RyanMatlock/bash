@@ -54,3 +54,6 @@ case ${TERM} in
 esac
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+
+# create a new timestamped document and open it in Emacs
+alias tstxt='now=$(date +"%F-%H%M%S"); emacs $now.txt;'
