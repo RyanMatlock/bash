@@ -34,8 +34,27 @@ else
         PS1='\[\033[1;30m\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]'
     fi
 fi
+if [ "$TERM" = "dumb" ]; # (note bash's unusual string comparison operator)
+then
+    PS1='> '
+else
+    if [ $(id -u) -eq 0 ];
+    then
+        # if you're root, the prompt should be bold and red
+        # PS1='[\h:\W \u] \$ '
+        PS1='\[\033[1;31m\][\u@\h] \W \$ \[\033[0m\]'
+    else
+        # if you're not root, bold is fine
+        # you were using bright black before ([1;30m), but you should just use
+        # bold, because bright black is too dark on non-Solarized Dark
+        # terminals
+        PS1='\[\033[1m\][\u@\h:\W] \[\033[1;32m\]\$ \[\033[0m\]'
+    fi
+fi
 
-
+PS2='> '
+PS3='> '
+PS4='+ '
 
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
 # If this is an xterm set the title to user@host:dir
@@ -91,10 +110,9 @@ fi
 # checking if a variable is set (not done totally correctly, but when is
 # $EDITOR really going to be empty?):
 # http://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
-tstxt () {
+# this works for Arch now at least -- we'll see about Elementary OS later
+function func_tstxt {
     now=$(date +"%F-%H%M%S");
-    # echo $now;
-    # echo $#;
     if [ $# -eq 0 ];
     then
         if [ -z $EDITOR ];
@@ -116,3 +134,6 @@ tstxt () {
         esac
     fi
 }
+
+alias tstxt=func_tstxt
+alias vtstxt="tstxt --vi"
