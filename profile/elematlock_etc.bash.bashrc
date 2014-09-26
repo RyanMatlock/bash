@@ -71,6 +71,12 @@ PS4='+ '
 #    . /etc/bash_completion
 #fi
 
+# I don't need the hint, and I'm getting a weird error with the tstxt stuff below:
+#   $ source /etc/bash.bashrc 
+#   -bash: warning: here-document at line 78 delimited by end-of-file (wanted `EOF')
+#   -bash: /etc/bash.bashrc: line 140: syntax error: unexpected end of file
+#   [matlock@elematlock:profile] $ git status
+# maybe commenting this next part out will fix that
 # sudo hint
 # if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
 #     case " $(groups) " in *\ admin\ *)
@@ -83,6 +89,7 @@ PS4='+ '
 #     fi
 #     esac
 # fi
+# yep, that worked! (I should look into why, though)
 
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
