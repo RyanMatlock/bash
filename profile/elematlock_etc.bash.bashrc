@@ -72,17 +72,17 @@ PS4='+ '
 #fi
 
 # sudo hint
-if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
-    case " $(groups) " in *\ admin\ *)
-    if [ -x /usr/bin/sudo ]; then
-    cat <<-EOF
-    To run a command as administrator (user "root"), use "sudo <command>".
-    See "man sudo_root" for details.
+# if [ ! -e "$HOME/.sudo_as_admin_successful" ] && [ ! -e "$HOME/.hushlogin" ] ; then
+#     case " $(groups) " in *\ admin\ *)
+#     if [ -x /usr/bin/sudo ]; then
+#     cat <<-EOF
+#     To run a command as administrator (user "root"), use "sudo <command>".
+#     See "man sudo_root" for details.
     
-    EOF
-    fi
-    esac
-fi
+#     EOF
+#     fi
+#     esac
+# fi
 
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
