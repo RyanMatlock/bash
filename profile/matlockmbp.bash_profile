@@ -4,5 +4,6 @@ export LDFLAGS="-L/usr/local/include/c" # symlinked to
 # which is the gcc/g++49 library directory
 export SUDO_PS1='\[\033[1;31m\][\u@\h] \W \$ \[\033[0m\]'
 
-# opens a new timestamped text file in emacs
-alias tstxt='now=$(date +"%F-%H%M%S"); emacs $now.txt;'
+# ls, tree have color output enabled by default
+alias ls='ls -G'
+alias tree='tree -C'
