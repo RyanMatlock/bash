@@ -98,3 +98,5 @@ function func_tstxt {
 
 alias tstxt=func_tstxt
 alias vtstxt="tstxt --vi"
+
+export PYTHONPATH='/usr/local/magzor/src/pylib'
