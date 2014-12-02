@@ -123,7 +123,15 @@ alias goodbye='systemctl poweroff'
 # login and get the password each time---annoying, but better than the
 # alternative
 # eval "$(ssh-agent -s)"
-# ssh-add ~/.ssh/id_rsa
+# ssh-add ~/.ssh/id_
+rsa
 # actually, you want to keep this in both your and Trevor's
 # /home/<user>/.bashrc because otherwise you have issues logging in
 # through Tramp (or so it seems)
+# even doing it on login from /home/<user>/.bashrc seems to lead to
+# problems with Tramp, so I should just make a function in here
+function rsa-ssh {
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
+}
+# ok, this way works! (although Tramp can still be kind of finicky

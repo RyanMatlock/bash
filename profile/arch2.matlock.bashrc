@@ -14,9 +14,11 @@
 # I'm now being prompted for my ssh password, so let's just start ssh-agent on
 # login and get the password each time---annoying, but better than the
 # alternative
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/id_rsa
 # ok, I can deal with this (and I guess Trevor will have to, too)
 # this seems to need to live here in order to not make logging in
 # through Tramp super annoying/difficult/potentially impossible (I've
 # already tried it in /etc/bash.bashrc)
+# scratch the above
+# ---now just call "rsa-ssh"

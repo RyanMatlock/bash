@@ -14,5 +14,7 @@ PS1='[\u@\h \W]\$ '
 # I'm now being prompted for my ssh password, so let's just start ssh-agent on
 # login and get the password each time---annoying, but better than the
 # alternative
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/id_rsa
+# scratch the above
+# ---now just call "rsa-ssh"
