@@ -25,4 +25,5 @@ done
 
 echo "Copying $RAW_SRC to $IMG_OUT"
 dd bs=1m if=/dev/rdisk$1 | gzip -c > $IMG_OUT;
+chown $USER:staff $IMG_OUT;
 echo "Process ended."
