@@ -58,6 +58,20 @@ esac
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
 
+# formerly in /home/matlock/.bashrc
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
 # there's a more flexible way to do this
 # # create a new timestamped document and open it in Emacs
 # alias tstxt='now=$(date +"%F-%H%M%S"); emacs $now.txt;'
@@ -100,3 +114,23 @@ alias tstxt=func_tstxt
 alias vtstxt="tstxt --vi"
 
 export PYTHONPATH='/usr/local/magzor/src/pylib'
+
+# took these from /home/matlock/.bashrc so it would be available for all
+export PATH=~/magzor/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl
+alias goodbye='systemctl poweroff'
+
+# I'm now being prompted for my ssh password, so let's just start ssh-agent on
+# login and get the password each time---annoying, but better than the
+# alternative
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/id_rsa
+# actually, you want to keep this in both your and Trevor's
+# /home/<user>/.bashrc because otherwise you have issues logging in
+# through Tramp (or so it seems)
+# even doing it on login from /home/<user>/.bashrc seems to lead to
+# problems with Tramp, so I should just make a function in here
+function rsa-ssh {
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
+}
+# ok, this way works! (although Tramp can still be kind of finicky
