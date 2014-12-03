@@ -113,7 +113,7 @@ function func_tstxt {
 alias tstxt=func_tstxt
 alias vtstxt="tstxt --vi"
 
-export PYTHONPATH='/usr/local/magzor/src/pylib'
+export PYTHONPATH="/home/$USER/magzor/src/pylib"
 
 # took these from /home/matlock/.bashrc so it would be available for all
 export PATH=~/magzor/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl
@@ -123,8 +123,7 @@ alias goodbye='systemctl poweroff'
 # login and get the password each time---annoying, but better than the
 # alternative
 # eval "$(ssh-agent -s)"
-# ssh-add ~/.ssh/id_
-rsa
+# ssh-add ~/.ssh/id_rsa
 # actually, you want to keep this in both your and Trevor's
 # /home/<user>/.bashrc because otherwise you have issues logging in
 # through Tramp (or so it seems)
