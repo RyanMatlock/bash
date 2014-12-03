@@ -113,7 +113,7 @@ function func_tstxt {
 alias tstxt=func_tstxt
 alias vtstxt="tstxt --vi"
 
-export PYTHONPATH='/usr/local/magzor/src/pylib'
+export PYTHONPATH="/home/$USER/magzor/src/pylib"
 
 # took these from /home/matlock/.bashrc so it would be available for all
 export PATH=~/magzor/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl
