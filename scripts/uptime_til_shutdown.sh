@@ -10,7 +10,7 @@
 # ./uptime_til_shutdown.sh &) so that you get your shell back.
 
 while true; do
-    sleep 1m # uptime only records to the minute anyway
     echo $(uptime) > ~/uptime.log
+    sleep 1m # uptime only records to the minute anyway
 done
 
