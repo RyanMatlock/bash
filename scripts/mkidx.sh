@@ -3,13 +3,12 @@
 arg1="$1"
 dir=$(dirname $arg1)
 filename=$(basename $arg1)
-# echo $dir
 cd $dir
-# pwd
-echo $filename
-filename="${filename%.*}"
-echo $filename
+pdflatex $filename
+filename="${filename%.*}" # extract everything before the extension
+makeindex -s gind.ist $filename
+makeindex -s gglo.ist -o $filename.gls $filename.glo
+filename="$filename.dtx"
+pdflatex $filename
+pdflatex $filename
 cd - > /dev/null # have to do this to supress output
-
-# pdflatex yahw.dtx
-# makeindex -s gind.ist yahw
