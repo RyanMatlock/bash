@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this script makes it easier to generate the index for LaTeX dtx files (and
+# probably regular LaTeX files, too)
+
 arg1="$1"
 dir=$(dirname $arg1)
 filename=$(basename $arg1)
