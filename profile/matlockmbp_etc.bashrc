@@ -111,3 +111,6 @@ function func_tstxt {
 
 alias tstxt=func_tstxt
 alias vtstxt="tstxt --vi"
+
+export PATH=/usr/texbin:$PATH
+export PYTHONPATH=$PYTHONPATH:.
