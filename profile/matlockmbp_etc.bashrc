@@ -113,4 +113,5 @@ alias tstxt=func_tstxt
 alias vtstxt="tstxt --vi"
 
 export PATH=/usr/texbin:$PATH
+# adding . to PYTHONPATH is useful for py.test (among other things)
 export PYTHONPATH=$PYTHONPATH:.
