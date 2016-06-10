@@ -37,7 +37,7 @@ STD_RESPONSES = ["It is certain",
 if len(sys.argv) == 2:
     question = sys.argv[1]
 else:
-    question = raw_input("Ask a question of the virtual magic 8-ball:\n")
+    question = input("Ask a question of the virtual magic 8-ball:\n")
 
 response = random.choice(STD_RESPONSES)
 del question
