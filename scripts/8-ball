@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 """
-8ball.py
+8-ball
+(run $ mv 8-ball.py /usr/local/bin/8-ball; chmod 755 /usr/local/bin/8-ball to 
+put things where they out to be)
 
 A magic 8 ball in Python
 """
