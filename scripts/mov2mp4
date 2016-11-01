@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# this ought to shrink the size of MOV files (at least based on my small amount
+# of testing) by around 50%
+#
+# usage example:
+# $ mov2mp4 /path/to/file.mov
+
+ffmpeg -i $1 -vcodec h264 -acodec mp3 \
+       $(echo $(dirname $1)'/'$(date +"%F-%H%M%S")).mp4
