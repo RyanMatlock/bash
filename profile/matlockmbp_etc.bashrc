@@ -115,3 +115,9 @@ alias vtstxt="tstxt --vi"
 export PATH=/usr/texbin:$PATH
 # adding . to PYTHONPATH is useful for py.test (among other things)
 export PYTHONPATH=$PYTHONPATH:.
+
+# add Inkscape to command line
+# http://wiki.inkscape.org/wiki/index.php/Mac_OS_X#Inkscape_command_line
+alias inkscape="/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+
+stty kill ^U; stty erase ^?
