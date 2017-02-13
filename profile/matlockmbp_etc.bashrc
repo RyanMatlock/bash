@@ -45,6 +45,7 @@ if [ "$TERM" = "dumb" ]; # (note bash's unusual string comparison operator)
 then
     PS1='> '
 else
+    stty kill ^U; stty erase ^?
     if [ $(id -u) -eq 0 ];
     then
         # if you're root, the prompt should be bold and red
@@ -119,5 +120,3 @@ export PYTHONPATH=$PYTHONPATH:.
 # add Inkscape to command line
 # http://wiki.inkscape.org/wiki/index.php/Mac_OS_X#Inkscape_command_line
 alias inkscape="/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
-
-stty kill ^U; stty erase ^?
