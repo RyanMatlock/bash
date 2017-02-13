@@ -11,8 +11,7 @@ A magic 8 ball in Python
 import random
 import sys
 import shutil
-
-random.seed()
+import time
 
 STD_RESPONSES = ["It is certain",
                  "It is decidedly so",
@@ -41,8 +40,10 @@ if len(sys.argv) == 2:
 else:
     question = input("Ask a question of the virtual magic 8-ball:\n")
 
+# ctime()'s resolution is 1s, so you'll get the same response if you ask the
+# same question during the same second
+random.seed(time.ctime() + " " + question)
 response = random.choice(STD_RESPONSES)
-del question
 
 if sys.stdout.isatty():
     response = '\n{}\n'.format(response.center\
