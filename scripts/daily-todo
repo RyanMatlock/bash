@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+# -*- mode: python -*-
+
+"""
+daily-todo
+
+simple script to allow creation of daily Org mode todo files based on a
+template
+"""
+
+import logging
+import os
+import sys
+import argparse
+import re
+from datetime import datetime, timedelta
+
+logging.basicConfig(level=logging.DEBUG)
+
+DATE_SHORTCUTS = ["yesterday",
+                  "tomorrow",
+                  "monday",
+                  "mon"]
+REPLACEMENT_START = "<<<"
+REPLACEMENT_END = ">>>"
+COMMENT_LINE_START = "#<<<"
+
+
+template_path = os.path.expanduser(os.path.join("~",
+                                                "Dropbox",
+                                                "life",
+                                                "templates",
+                                                "daily-todo.org"))
+logging.debug("template_path: {}".format(template_path))
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-d",
+                    "--date",
+                    help="use a date other than today (enter in ISO-8601 "
+                    "format, i.e. YYYY-MM-DD, which is the same is *nix 'date "
+                    "+\"%%F\"'); also valid: yesterday, tomorrow, monday, "
+                    "mon")
+parser.add_argument("-t",
+                    "--template",
+                    help="use a template file other than the default "
+                    "(currently set to {})".format(template_path))
+parser.add_argument("-o",
+                    "--output",
+                    help="override the default output path")
+args = parser.parse_args()
+
+logging.debug("CLI args: {}".format(args))
+
+
+def main():
+    def calculate_next_monday(d):
+        """
+        d is datetime object that is probably but not necessarily today
+        """
+        def calculate_next_weekday(weekday_int):
+            """
+            http://stackoverflow.com/a/6558571/2677392 -- but curried
+
+            0 = Mon, 1 = Tue, ..., 6 = Sun
+            """        
+            days_ahead = weekday_int - d.weekday()
+            if days_ahead <= 0:  # target day already happened this week
+                days_ahead += 7
+            return d + timedelta(days_ahead)
+        return calculate_next_weekday(0)
+
+    def calculate_tomorrow(d):
+        """
+        d is datetime object that is probably but not necessarily today
+        """
+        return d + timedelta(days=1)
+
+    def calculate_yesterday(d):
+        """
+        d is datetime object that is probably but not necessarily today
+        """
+        return d + timedelta(days=-1)
+
+
+    if args.date:
+        try:
+            date_obj = datetime.strptime(args.date, "%Y-%m-%d")
+        except ValueError as e:
+            if args.date.lower() in DATE_SHORTCUTS:
+                today = datetime.today()
+                if args.date.lower() in ("monday", "mon"):
+                    date_obj = calculate_next_monday(today)
+                elif args.date.lower() == "yesterday":
+                    date_obj = calculate_yesterday(today)
+                elif args.date.lower() == "tomorrow":
+                    date_obj = calculate_tomorrow(today)
+                else:
+                    raise Exception("date shortcut '{}' not yet implemented"
+                                    "".format(args.date.lower()))
+            else:
+                raise e
+    else:
+        date_obj = datetime.today()
+    logging.debug("date_obj: {}".format(date_obj))
+
+    iso_date = date_obj.strftime("%Y-%m-%d")
+    fancy_date = date_obj.strftime("%A %b %d, %Y")
+    weekday = date_obj.strftime("%a").lower()
+    week = date_obj.strftime("%V")
+    year = date_obj.strftime("%Y")
+    logging.debug("iso_date: {iso_date}\n"
+                  "fancy_date: {fancy_date}\n"
+                  "weekday: {weekday}\n"
+                  "week: {week}\n"
+                  "year: {year}".format(**locals()))
+
+
+    def replacement_str(label,
+                       replacement_start=REPLACEMENT_START,
+                       replacement_end=REPLACEMENT_END):
+        return "{}{}{}".format(replacement_start,
+                               label,
+                               replacement_end)
+
+    if args.output:
+        output_path = args.output
+    else:
+        output_path = \
+          os.path.expanduser(os.path.join("~",
+                                          "Dropbox",
+                                          "life",
+                                          "{}".format(year),
+                                          "week-{}".format(week),
+                                          "{}-{}.org".format(weekday,
+                                                             iso_date)))
+        logging.debug("output_path: {}".format(output_path))
+        
+    if os.path.exists(output_path):
+        logging.warning("Something's here at {}".format(output_path))
+        # raise Exception("something at {} already exists; not overwriting "
+        #                 "it".format(output_path))
+    else:
+        path_to_output, _ = os.path.split(output_path)
+        if os.path.isdir(path_to_output):
+            pass
+        else:
+            logging.debug("creating directory {}".format(path_to_output))
+            os.makedirs(path_to_output)
+
+    # TODO: come up with elegant way of performing the substitions
+    substitions = ["foo", "bar"]
+
+    with open(template_path) as template:
+        with open(output_path, "w") as output:
+            for line in template.readlines():
+                for substition in substitions:
+                    pass
+                output.write(line)
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
