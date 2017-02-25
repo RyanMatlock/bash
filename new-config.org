@@ -1,0 +1,11 @@
+#+TITLE: Configuring a new computer/(mostly) fresh install
+
+* TODO Install basic stuff
+** DONE Homebrew
+** DONE Emacs
+*** DONE Update/install Xcode
+*** DONE Install packages
+** DONE Python3
+** TODO GNU Coreutils
+https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+** DONE Imagemagick
