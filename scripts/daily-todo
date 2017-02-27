@@ -51,6 +51,11 @@ parser.add_argument("-p",
                     "--print_path",
                     action="store_true",
                     help="print path to output file to stdout")
+parser.add_argument("-w",
+                    "--overwrite",
+                    action="store_true",
+                    help="overwrite any encountered files without prompting "
+                         "user")
 args = parser.parse_args()
 
 logging.debug("CLI args: {}".format(args))
@@ -148,7 +153,7 @@ def main():
         logging.info("os.path.islink({}): {}"
                      "".format(output_path, os.path.islink(output_path)))
 
-    if os.path.isfile(output_path):
+    if os.path.isfile(output_path) and not args.overwrite:
         overwrite = input("File already exists at {}. Overwrite? (yes/no) "
                           "".format(output_path))
         if overwrite.lower() == "yes":
