@@ -149,13 +149,25 @@ def main():
 
     # TODO: come up with elegant way of performing the substitions
     substitions = ["foo", "bar"]
+    substitions = [
+        ("FANCY_DATE", fancy_date),
+        ("ISO_DATE", iso_date),
+        ("WEEK", "{}".format(int(week))),  ## remove zero padding from week
+        ]
 
     with open(template_path) as template:
         with open(output_path, "w") as output:
             for line in template.readlines():
+                logging.debug("line (pre substitutions): {}".format(line))
                 for substition in substitions:
-                    pass
+                    pattern = replacement_str(substition[0])
+                    repl = substition[1]
+                    line = re.sub(pattern, repl, line)
+                logging.debug("line (post substitutions): {}".format(line))
                 output.write(line)
+
+    if args.print_path:
+        print(output_path)
     return 0
 
 if __name__ == "__main__":
