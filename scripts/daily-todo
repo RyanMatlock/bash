@@ -15,7 +15,7 @@ import argparse
 import re
 from datetime import datetime, timedelta
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 DATE_SHORTCUTS = ["yesterday",
                   "tomorrow",
@@ -47,6 +47,10 @@ parser.add_argument("-t",
 parser.add_argument("-o",
                     "--output",
                     help="override the default output path")
+parser.add_argument("-p",
+                    "--print_path",
+                    action="store_true",
+                    help="print path to output file to stdout")
 args = parser.parse_args()
 
 logging.debug("CLI args: {}".format(args))
@@ -136,19 +140,33 @@ def main():
         logging.debug("output_path: {}".format(output_path))
         
     if os.path.exists(output_path):
-        logging.warning("Something's here at {}".format(output_path))
-        # raise Exception("something at {} already exists; not overwriting "
-        #                 "it".format(output_path))
-    else:
-        path_to_output, _ = os.path.split(output_path)
-        if os.path.isdir(path_to_output):
+        logging.info("Something's here at {}".format(output_path))
+        logging.info("os.path.isdir({}): {}"
+                     "".format(output_path, os.path.isdir(output_path)))
+        logging.info("os.path.isfile({}): {}"
+                     "".format(output_path, os.path.isfile(output_path)))
+        logging.info("os.path.islink({}): {}"
+                     "".format(output_path, os.path.islink(output_path)))
+
+    if os.path.isfile(output_path):
+        overwrite = input("File already exists at {}. Overwrite? (yes/no) "
+                          "".format(output_path))
+        if overwrite.lower() == "yes":
             pass
         else:
-            logging.debug("creating directory {}".format(path_to_output))
-            os.makedirs(path_to_output)
+            print("Existing file untouched. Exiting.")
+            return 1
+    elif os.path.isdir(output_path):
+        raise Exception("Directory exists where output was going to be "
+                        "written ({}).".format(output_path))
 
-    # TODO: come up with elegant way of performing the substitions
-    substitions = ["foo", "bar"]
+    path_to_output, _ = os.path.split(output_path)
+    if os.path.isdir(path_to_output):
+        pass
+    else:
+        logging.debug("creating directory {}".format(path_to_output))
+        os.makedirs(path_to_output)
+
     substitions = [
         ("FANCY_DATE", fancy_date),
         ("ISO_DATE", iso_date),
