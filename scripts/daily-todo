@@ -56,6 +56,11 @@ parser.add_argument("-w",
                     action="store_true",
                     help="overwrite any encountered files without prompting "
                          "user")
+parser.add_argument("-n",
+                    "--no_prompts",
+                    action="store_true",
+                    help="if file exists, it won't be overwritten, and you "
+                         "won't be prompted or told that the file exists")
 args = parser.parse_args()
 
 logging.debug("CLI args: {}".format(args))
@@ -143,15 +148,11 @@ def main():
                                           "{}-{}.org".format(weekday,
                                                              iso_date)))
         logging.debug("output_path: {}".format(output_path))
-        
-    if os.path.exists(output_path):
-        logging.info("Something's here at {}".format(output_path))
-        logging.info("os.path.isdir({}): {}"
-                     "".format(output_path, os.path.isdir(output_path)))
-        logging.info("os.path.isfile({}): {}"
-                     "".format(output_path, os.path.isfile(output_path)))
-        logging.info("os.path.islink({}): {}"
-                     "".format(output_path, os.path.islink(output_path)))
+
+    if os.path.exists(output_path) and args.no_prompts:
+        if args.print_path:
+            print(output_path)
+        return 0
 
     if os.path.isfile(output_path) and not args.overwrite:
         overwrite = input("File already exists at {}. Overwrite? (yes/no) "
