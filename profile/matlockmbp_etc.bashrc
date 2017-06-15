@@ -120,3 +120,7 @@ export PYTHONPATH=$PYTHONPATH:.
 # add Inkscape to command line
 # http://wiki.inkscape.org/wiki/index.php/Mac_OS_X#Inkscape_command_line
 alias inkscape="/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+
+if [ "$INSIDE_EMACS" ]; then
+    export LANG=en_US.UTF-8;
+fi
