@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""
+nreplace
+
+replace newlines at the end of non-empty line with a space
+"""
+
+import re
+import sys
+
+
+def format_line(cur, nxt):
+    if nxt == "\n":
+        return cur
+    else:
+        # replace terminal newline of nonempty string with a space
+        return re.sub("^(.+)\n", "\\1 ", cur)
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Expected 1 argument (file to process); "
+              "got {}. Exiting.".format(len(sys.argv)-1))
+        return 1
+    else:
+        with open(sys.argv[1]) as f:
+            current_line = ""
+            for line in f:
+                next_line = line
+                print(format_line(current_line, next_line), end="")
+                current_line = next_line
+            else:
+                # need to print the last line, which by definition won't
+                print(next_line, end="")
+        return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
